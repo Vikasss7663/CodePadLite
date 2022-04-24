@@ -1,5 +1,6 @@
-package com.coding.codepadlite
+package com.coding.codepadlite.viewmodel
 
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.MutableLiveData
@@ -9,6 +10,7 @@ import androidx.lifecycle.viewModelScope
 import com.coding.codepadlite.room.Code
 import com.coding.codepadlite.room.CodeDao
 import com.coding.codepadlite.room.CodeLang
+import com.coding.codepadlite.room.getDummyCodeItem
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
@@ -16,7 +18,10 @@ class CodeViewModel(private val codeDao: CodeDao): ViewModel() {
 
     private val _codes = mutableStateOf(emptyList<Code>())
     val codes: State<List<Code>> = _codes
-    val selectedItem = MutableLiveData<Code>()
+    var topBarVisible: MutableState<Boolean> = mutableStateOf(true)
+    var favCodes: MutableState<Boolean> = mutableStateOf(false)
+
+    var selectedItem = getDummyCodeItem()
 
     init {
         fetchAllCodes()
@@ -31,14 +36,14 @@ class CodeViewModel(private val codeDao: CodeDao): ViewModel() {
     }
 
 
-    fun addNewItem(codeId: Int, codeTitle: String, codeDesc: String, codeContent: String, codeLang: CodeLang, codeFav: Boolean) {
+    fun addNewItem(it: Code) {
         val newCode = Code(
-            codeId = codeId,
-            codeTitle = codeTitle,
-            codeDesc = codeDesc,
-            codeContent = codeContent,
-            codeLang = codeLang,
-            codeFav = codeFav
+            codeId = it.codeId,
+            codeTitle = it.codeTitle,
+            codeDesc = it.codeDesc,
+            codeContent = it.codeContent,
+            codeLang = it.codeLang,
+            codeFav = it.codeFav
         )
         insertCode(newCode)
     }

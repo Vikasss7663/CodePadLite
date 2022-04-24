@@ -1,4 +1,4 @@
-package com.coding.codepadlite
+package com.coding.codepadlite.application
 
 import android.app.Application
 import com.coding.codepadlite.room.CodeDatabase

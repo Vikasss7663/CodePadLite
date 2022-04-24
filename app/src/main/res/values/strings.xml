@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">CodePadLite</string>
+    <string name="title_activity_code_pad_edit">CodePadEdit</string>
+    <string name="title_activity_code_pad_list">CodePadList</string>
+    <string name="title_activity_main">MainActivity</string>
+</resources>
